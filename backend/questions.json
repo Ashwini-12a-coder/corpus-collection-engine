@@ -1,0 +1,86 @@
+{
+  "stories": [
+    "Who usually tells stories in your community?",
+    "What is a famous folk story from your area?",
+    "What lesson or moral does the story teach?",
+    "Who are the main characters in the story?",
+    "Where does the story take place (village, forest, temple, etc.)?",
+    "Are there songs, chants, or rhymes in the story?",
+    "What local words are commonly used in storytelling?",
+    "How do people start stories in your language?",
+    "How do people usually end stories?",
+    "Why is this story important to your community?"
+  ],
+  "food": [
+    "What is a popular traditional dish in your area?",
+    "What are the main ingredients used?",
+    "How is the dish prepared (cooking process)?",
+    "When is it usually eaten (daily, festivals, weddings)?",
+    "What cultural meaning does the dish hold?",
+    "Are there rituals connected to preparing this dish?",
+    "What spices make this food unique?",
+    "How is it served (special utensils, banana leaf, etc.)?",
+    "What is its local name in your language?",
+    "Why do people still prepare this dish today?"
+  ],
+  "arts": [
+    "What folk art is famous in your area (painting, weaving, dance)?",
+    "What materials are used to create it?",
+    "Who traditionally practices this art?",
+    "What symbols, patterns, or motifs are unique?",
+    "What is its religious or cultural importance?",
+    "Is it performed/displayed at festivals?",
+    "How is this art taught to younger generations?",
+    "What challenges do artists face today?",
+    "Has the art form changed in modern times?",
+    "Why should this art be preserved?"
+  ],
+  "festivals": [
+    "What is the most important festival in your area?",
+    "When is it celebrated (season/month)?",
+    "What rituals or customs are followed?",
+    "What special foods are prepared?",
+    "What music, songs, or dances are performed?",
+    "How do people dress during the festival?",
+    "Who participates and what roles do they play?",
+    "What is the story or history behind the festival?",
+    "How has the festival changed over time?",
+    "Why do people value this festival?"
+  ],
+  "music_dance": [
+    "What is a traditional dance form in your area?",
+    "What music is used for it (instruments, songs)?",
+    "Who usually performs this dance?",
+    "On what occasions is it performed?",
+    "What costumes or ornaments are worn?",
+    "What rhythms or steps are unique?",
+    "Are there folk songs tied to daily life?",
+    "How are these songs taught or remembered?",
+    "How has music/dance changed recently?",
+    "Why is it important to preserve them?"
+  ],
+  "language_proverbs": [
+    "Share a proverb or saying from your area.",
+    "What situation is it usually used in?",
+    "Translate it word by word.",
+    "What is its deeper meaning?",
+    "Who usually says it (elders, teachers, parents)?",
+    "Is it linked to a story or local belief?",
+    "Are there gestures/tone used with it?",
+    "What is an opposite proverb people say?",
+    "Has its meaning changed over time?",
+    "Why is it important in your culture?"
+  ],
+  "games_sports": [
+    "What games do children traditionally play?",
+    "What materials/equipment are used (stones, sticks, seeds)?",
+    "Are there seasonal games (monsoon, summer, harvest)?",
+    "Who usually plays (children, adults, men, women)?",
+    "Are these games linked to festivals?",
+    "What skills do these games teach (teamwork, strength)?",
+    "What is a unique game from your area?",
+    "What is its local name in your language?",
+    "Do people still play it today?",
+    "Why should these games be preserved?"
+  ]
+}

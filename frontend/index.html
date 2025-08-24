@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Culture Vault — Corpus Collection Engine</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#0f766e" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L5.5 20l2-7L2 9h7l3-7z"></path>
+      </svg>
+      <h1>My Culture Vault</h1>
+    </div>
+    <div class="actions">
+      <select id="langSelect" title="Language">
+        <option value="en" selected>English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="te">తెలుగు</option>
+      </select>
+      <button id="installBtn" class="ghost">Install</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2 data-i18n="intro_title">Preserve & Share Local Knowledge</h2>
+      <p data-i18n="intro_desc">
+        Choose a category, answer 10 short questions in your language, and help build open datasets for Indian languages, history, and culture.
+      </p>
+      <div class="meta">
+        <span id="statusDot" class="dot offline"></span>
+        <span id="netStatus" data-i18n="status_offline">Offline-first ready. Submissions will sync when online.</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <label for="category" class="label" data-i18n="pick_category">Pick a category</label>
+        <select id="category" class="input">
+          <option value="stories">Stories</option>
+          <option value="festivals">Festivals</option>
+          <option value="food">Food</option>
+          <option value="arts">Arts</option>
+          <option value="games_sports">Games_Sports</option>
+          <option value="language_proverbs">Language_Proverbs</option>
+          <option value="music_dance">Music_Dance</option>
+
+        </select>
+      </div>
+
+      <div class="card">
+        <label class="label" for="participantName" data-i18n="name_label">Your name (optional)</label>
+        <input id="participantName" class="input" placeholder="e.g., Lakshmi" />
+      </div>
+
+      <div class="card">
+        <label class="label" for="participantLang" data-i18n="answer_lang">Answer language</label>
+        <input id="participantLang" class="input" placeholder="e.g., Telugu / తెలుగు" />
+      </div>
+
+      <div class="card">
+        <label class="label" data-i18n="timer_label">Session timer</label>
+        <div id="timer" class="timer">15:00</div>
+      </div>
+    </section>
+
+    <section id="questionsSection" class="card">
+      <div class="row space-between">
+        <h3 data-i18n="questions_title">Questions</h3>
+        <button id="loadBtn" class="btn" data-i18n="load_questions">Load 10 Questions</button>
+      </div>
+      <form id="qaForm" class="qa-list"></form>
+    </section>
+
+    <section class="card">
+      <div class="row space-between">
+        <div>
+          <input type="checkbox" id="agreeCheck" />
+          <label for="agreeCheck" data-i18n="agree_text">
+            I agree to contribute my answers under an open-license (CC BY 4.0).
+          </label>
+        </div>
+        <button id="submitBtn" class="btn primary" disabled data-i18n="submit_btn">Submit Answers</button>
+      </div>
+      <p class="fine" data-i18n="privacy_note">
+        Your responses may be used to build open datasets for research and education. Avoid sharing private information.
+      </p>
+      <div id="msg" class="msg"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>v1.0 • Open-source • Offline-first • <a href="#" id="exportLocal">Export unsent (JSON)</a></small>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
+</body>
+</html>
