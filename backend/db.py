@@ -1,12 +1,19 @@
+import os
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, JSON
 from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime
-import os
 
-DB_PATH = os.environ.get("CCE_DB_PATH", "data/cce.db")
-os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+# Get PostgreSQL credentials from environment variables
+DB_HOST = os.environ['DB_HOST']
+DB_NAME = os.environ['DB_NAME']
+DB_USER = os.environ['DB_USER']
+DB_PASSWORD = os.environ['DB_PASSWORD']
+DB_PORT = os.environ.get('DB_PORT', 5432)
 
-engine = create_engine(f"sqlite:///{DB_PATH}", echo=False, future=True)
+# PostgreSQL connection string
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+engine = create_engine(DATABASE_URL, echo=False, future=True)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
 Base = declarative_base()
 
@@ -23,7 +30,7 @@ class Submission(Base):
     category = Column(String(50), index=True)
     participant_name = Column(String(120), nullable=True)
     participant_lang = Column(String(20), nullable=True)
-    answers = Column(JSON, nullable=False)  # list of {question_id, answer_text}
+    answers = Column(JSON, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
 
 def init_db():
