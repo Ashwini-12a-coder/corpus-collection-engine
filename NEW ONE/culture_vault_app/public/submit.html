@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Submission Successful 🎉</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #222;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #e73370;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎊 Successfully Submitted! 🎊</h1>
+  <p>Thank you for sharing your valuable knowledge! 🥳</p>
+  <button onclick="window.location.href='intra.html'">Go Home</button>
+
+  <script>
+    // Fire confetti when the page loads
+    function launchConfetti() {
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Burst every 1 second for 3 times
+    let count = 0;
+    let interval = setInterval(() => {
+      launchConfetti();
+      count++;
+      if (count === 3) clearInterval(interval);
+    }, 1000);
+
+    // Initial big celebration
+    launchConfetti();
+  </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Culture Vault 🎉</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb, #a1c4fd);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .chat-container {
+      width: 450px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 25px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      height: 85vh;
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+      font-size: 1.0rem;
+      font-weight: bold;
+      color: #ff6b6b;
+      margin-bottom: 10px;
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      padding-right: 5px;
+      scroll-behavior: smooth;
+    }
+
+    .message {
+  margin: 10px 0;
+  padding: 12px 16px;
+  border-radius: 20px;
+  max-width: 80%;
+  animation: pop 0.3s ease-in;
+  position: relative;
+  white-space: pre-wrap;  
+  word-spacing: 2px;      
+  line-height: 1.5; 
+}
+    @keyframes pop {
+      from {transform: scale(0.8); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+
+    .bot {
+      background: #dbeafe;
+      align-self: flex-start;
+    }
+    .user {
+      background: #fef3c7;
+      align-self: flex-end;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 5px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 20px;
+      border: 2px solid #60a5fa;
+      outline: none;
+      transition: 0.3s;
+    }
+    input:focus {
+      border-color: #2563eb;
+    }
+
+    button {
+      background: #34d399;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #fff;
+      font-size: 18px;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      background: #059669;
+      transform: scale(1.1);
+    }
+
+    .categories button {
+      margin: 4px;
+      background: #f472b6;
+      border-radius: 15px;
+      padding: 10px 14px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .categories button:hover {
+      background: #ec4899;
+      transform: translateY(-2px);
+    }
+
+    /* Floating emojis for fun */
+    .emoji {
+      position: absolute;
+      font-size: 24px;
+      animation: float 5s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes float {
+      from {transform: translateY(100vh) rotate(0);}
+      to {transform: translateY(-10vh) rotate(360deg);}
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">🎭My Culture Vault🎉</div>
+    <div class="messages" id="messages"></div>
+    <div class="input-area" id="input-area"></div>
+  </div>
+
+  <script>
+    // Cultural questions
+    const questionsData =
+  {
+  "historical_events": [
+    "How did your village/town get its name?",
+    "Is there any old temple, building, or place with a story?",
+    "Did any big festival or fair start long ago in your village?",
+    "Do people talk about a king, ruler, or famous person from your area?",
+    "Do you know of any saint, poet, or freedom fighter linked to your place?",
+    "Did any big event or battle happen near your village?",
+    "Has any famous leader ever visited your place?",
+    "Is there a river, hill, or tree in your area with a legend or story?",
+    "Do you celebrate a festival because of some old story/event?",
+    "What is the oldest memory/story your elders share about the village?"
+  ],
+  "food": [
+    "What traditional dish is famous in your area?",
+    "What are the main things used to make it?",
+    "How do people usually prepare it?",
+    "When do you eat it (daily, weddings, festivals)?",
+    "Why is this food special for your people?",
+    "Do people follow any customs while making it?",
+    "Which spices make this food taste different?",
+    "How is it served (plate, banana leaf, pot, etc.)?",
+    "What do you call this dish in your local language?",
+    "Why do people still cook this dish today?"
+  ],
+  "arts": [
+    "What traditional art (painting, weaving, dance, etc.) is common in your area?",
+    "What things are used to make/do it?",
+    "Who usually practices this art?",
+    "What special designs or patterns are used?",
+    "Why is this art important to your people?",
+    "Do you see it during festivals or special days?",
+    "How do elders teach this art to young people?",
+    "What problems do artists face today?",
+    "Has this art changed in modern times?",
+    "Why should we keep this art alive?"
+  ],
+  "festivals": [
+    "Which festival is most important in your area?",
+    "When is it celebrated (season/month)?",
+    "What do people usually do on that day?",
+    "What special food is cooked?",
+    "What music, dance, or songs are done?",
+    "How do people dress up?",
+    "Who takes part and what do they do?",
+    "What is the story behind this festival?",
+    "Has it changed compared to old times?",
+    "Why do people love this festival?"
+  ],
+  "music_dance": [
+    "What traditional dance is famous in your area?",
+    "What music or instruments are used with it?",
+    "Who usually performs this dance?",
+    "On what occasions is it done?",
+    "What dress or ornaments do dancers wear?",
+    "What steps or beats make it different?",
+    "Do people sing folk songs in daily life?",
+    "How do people remember or teach these songs?",
+    "Has music or dance changed in recent years?",
+    "Why should we protect these traditions?"
+  ],
+  "language_proverbs": [
+    "Can you share a local proverb or saying?",
+    "When do people usually say it?",
+    "What does it mean in simple words?",
+    "Who usually says it (elders, parents, teachers)?",
+    "Is it linked to a story or belief?",
+    "Do people use any hand gestures while saying it?",
+    "Is there an opposite or funny version of it?",
+    "Has its meaning changed with time?",
+    "Why is this saying important in your culture?"
+  ],
+  "games_sports": [
+    "What games did children play in old times?",
+    "What things were used (stones, sticks, seeds)?",
+    "Were there special games for monsoon, summer, or harvest time?",
+    "Who played these games (boys, girls, adults)?",
+    "Were these games played during festivals too?",
+    "What skills do these games teach (teamwork, strength, fun)?",
+    "What unique game is only found in your area?",
+    "What is it called in your local language?",
+    "Do children still play it today?",
+    "Why should these games not be forgotten?"
+  ]
+}
+    const messagesDiv = document.getElementById("messages");
+    const inputArea = document.getElementById("input-area");
+    let currentCategory = null;
+    let step = 0;
+
+    function addMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.className = `message ${sender}`;
+      msg.innerText = text;
+      messagesDiv.appendChild(msg);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function showCategories() {
+      inputArea.innerHTML = "";
+      const wrapper = document.createElement("div");
+      wrapper.className = "categories";
+      Object.keys(questionsData).forEach(cat => {
+        const btn = document.createElement("button");
+        btn.textContent = cat.toUpperCase();
+        btn.onclick = () => startCategory(cat);
+        wrapper.appendChild(btn);
+      });
+      inputArea.appendChild(wrapper);
+      addMessage("👋 Hi friend! Let’s explore culture together. Pick a category:", "bot");
+    }
+
+    function startCategory(cat) {
+      currentCategory = cat;
+      step = 0;
+      messagesDiv.innerHTML = "";
+      addMessage(`Awesome! Let’s talk about ${cat} 🌟`, "bot");
+      askQuestion();
+      showInputBox();
+    }
+
+    function askQuestion() {
+  if (step < questionsData[currentCategory].length) {
+    typingEffect(questionsData[currentCategory][step]);
+  } else {
+    addMessage("🎉 Yay! You completed this category! 🥳", "bot");
+
+    // wait 3 seconds then go to submit.html
+    setTimeout(() => {
+      window.location.href = "submit.html";
+    }, 3000);
+
+    return;
+  }
+}
+
+    function showInputBox() {
+      inputArea.innerHTML = `
+        <input id="userInput" placeholder="Type your answer..." />
+        <button onclick="sendAnswer()">➤</button>
+      `;
+    }
+
+    function sendAnswer() {
+      const input = document.getElementById("userInput");
+      if (!input.value.trim()) return;
+      addMessage(input.value, "user");
+      input.value = "";
+      step++;
+      setTimeout(askQuestion, 800);
+    }
+
+    // Typing effect for bot
+    function typingEffect(text) {
+      let i = 0;
+      const msg = document.createElement("div");
+      msg.className = "message bot";
+      messagesDiv.appendChild(msg);
+
+      function typing() {
+        if (i < text.length) {
+          msg.innerText += text.charAt(i);
+          i++;
+          setTimeout(typing, 40);
+        }
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+      typing();
+    }
+
+    // Floating emojis
+    function spawnEmojis() {
+      const emojis = ["🎉","🎭","🎶","🍲","🪘","🕺","🌸"];
+      const emoji = document.createElement("div");
+      emoji.className = "emoji";
+      emoji.style.left = Math.random() * window.innerWidth + "px";
+      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 5000);
+    }
+    setInterval(spawnEmojis, 3000);
+
+    // Show welcome message with username
+    const user = localStorage.getItem("username") || "Friend";
+    addMessage(`👋 Welcome, ${user}! Let's start exploring culture.`, "bot");
+
+    // Start
+    showCategories();
+  </script>
+</body>
+</html>
